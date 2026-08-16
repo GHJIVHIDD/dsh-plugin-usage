@@ -1,0 +1,52 @@
+{
+  "name": "@deepseek-ai/dsh-plugin-usage",
+  "version": "0.1.0",
+  "description": "Usage (用量) deployment plugin for DeepSeek Harness (DSH): a real-time token & cost dashboard tab next to chat/trajectory, with live streaming estimates, DeepSeek official peak/off-peak pricing and OpenCode Go plan pricing, custom price table, and CSV/JSON export.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "install.sh",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "verify": "node scripts/verify.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "usage",
+    "tokens",
+    "cost",
+    "pricing",
+    "dashboard",
+    "plugin",
+    "web"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "license": "MIT"
+}

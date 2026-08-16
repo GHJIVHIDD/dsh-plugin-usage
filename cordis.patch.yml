@@ -1,0 +1,16 @@
+# Usage (deployment plugin): inserts the "用量" tab into the conversation view.
+# The host half collects per-session model usage (input/output/cache tokens)
+# from session events and live llm streams, computes DeepSeek official
+# peak/off-peak prices and OpenCode Go plan prices, and serves /usage-api/*
+# routes plus one-shot /usage-export-* download routes.
+#
+# IMPORTANT: choose only ONE registration path.
+#   - If you use `dsh plugin add github:GHJIVHIDD/dsh-plugin-usage`, this patch
+#     is applied automatically by the bundle layer; do NOT also add it manually
+#     to cordis.patch.yml.
+#   - If you use ./install.sh (manual patch method), this patch is required, and
+#     install.sh will remove the plugin from dsh.profile.bundles to avoid the
+#     duplicate `ui-usage` loader entry.
+- insert:
+    - id: ui-usage
+      name: '@deepseek-ai/dsh-plugin-usage'
