@@ -73,10 +73,10 @@ Then re-run the install command.
 The install package is published in GitHub Releases (not in the source tree):
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.2.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.2/dsh-plugin-usage-0.1.2.tgz
+curl -L -o dsh-plugin-usage-0.1.3.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.3/dsh-plugin-usage-0.1.3.tgz
 
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.2.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.3.tgz
 ```
 
 Or download it from the Releases page:

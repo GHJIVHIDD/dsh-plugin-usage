@@ -73,11 +73,11 @@ allowBuilds:
 安装包发布在 GitHub Releases，不放入源码目录。直接下载：
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.2.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.2/dsh-plugin-usage-0.1.2.tgz
+curl -L -o dsh-plugin-usage-0.1.3.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.3/dsh-plugin-usage-0.1.3.tgz
 
 # 下载后安装
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.2.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.3.tgz
 ```
 
 也可以打开 Releases 页面手动下载：
