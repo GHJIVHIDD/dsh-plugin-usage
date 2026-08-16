@@ -59,7 +59,13 @@ const sources = ['lib/index.js', 'lib/client.js', 'install.sh', 'cordis.patch.ym
 for (const f of sources) {
   const text = readFileSync(join(root, f), 'utf8')
   for (const s of SENSITIVE) {
-    if (!text.includes(s)) continue
+    // For 'sk-', only treat real key shapes (sk- followed by 10+ alnum) as a
+    // leak; documentation examples like "sk-..." are placeholders.
+    if (s === 'sk-') {
+      if (!/sk-[A-Za-z0-9]{10,}/.test(text)) continue
+    } else if (!text.includes(s)) {
+      continue
+    }
     // install.sh legitimately references .git-credentials inside its cleanup
     // `rm -rf` line (removing such files from the copied tree); that is a
     // privacy-positive action, not a leak.

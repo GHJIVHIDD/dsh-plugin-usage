@@ -18,7 +18,8 @@ A real-time token & cost dashboard tab for the current session, placed next to C
   - **DeepSeek official** (CNY / 1M tokens, effective 2026-08-17): peak hours (Beijing 09:00–12:00, 14:00–18:00) are 2× off-peak. V4 Pro: peak 9/0.3/27, off 4.5/0.15/13.5 (in/cache/out); V4 Flash: peak 3/0.1/9, off 1.5/0.05/4.5.
   - **OpenCode Go plan** (USD / 1M tokens + monthly quota): 20 built-in models (DeepSeek V4 Pro/Flash, Grok 4.5, GPT 5.6 Luna, GLM, Kimi, MiMo, MiniMax, Qwen3, Hy3), e.g. V4 Flash off-peak 0.22/0.007/0.66 and peak 0.44/0.014/1.32 with $15/month quota (DeepSeek plan models are billed in two peak tiers); plan is $10/month ≈ 6× usage value.
   - Three display modes: **Auto** (both), **Official** only, **Plan** only.
-- **Animated gradient-blue status bars** — input / output / cache-hit distribution plus plan-quota usage, smooth width transitions refreshed every second.
+- **Animated gradient-blue status bars** — input / output / cache-hit distribution, smooth width transitions refreshed every second.
+- **OpenCode Go official quota** — reads the official account quota (rolling 5h / weekly / monthly windows with reset times) straight from the `opencode.ai/zen/go/v1/usage` API, matching the console numbers.
 - **Custom price table** — add, edit or remove prices for any model (official peak/off + plan prices + quota). Custom entries override the built-in cards, are persisted to `<workspaceRoot>/.dsh-usage-prices.json`, and historical costs are **re-priced immediately** after a change.
 - **CSV / JSON export** — one-click download links (60s validity) for the full call detail list with per-call prices and totals.
 - **Peak/off-peak indicator** — the toolbar shows whether the current Beijing time is peak or off-peak.
@@ -72,10 +73,10 @@ Then re-run the install command.
 The install package is published in GitHub Releases (not in the source tree):
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.1.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.1/dsh-plugin-usage-0.1.1.tgz
+curl -L -o dsh-plugin-usage-0.1.2.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.2/dsh-plugin-usage-0.1.2.tgz
 
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.1.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.2.tgz
 ```
 
 Or download it from the Releases page:
@@ -140,11 +141,21 @@ If the tab is missing, check the browser console for `usage-api` fetch failures,
 2. Open the **用量** tab (next to Trajectory).
 3. The page refreshes every second:
    - **Session overview** — input / output (incl. reasoning) / cache hit / cost (official ¥ and plan $), current model and call count.
-   - **Usage distribution** — gradient-blue bars for input, output, cache hit and plan quota (with a pulsing dot and "generating" label on the in-flight call).
+   - **Usage distribution** — gradient-blue bars for input, output and cache hit (with a pulsing dot and "generating" label on the in-flight call).
+   - **OpenCode Go official quota** — rolling (5h) / weekly / monthly usage percentages with reset times, identical to the OpenCode console; requires the API key (see below).
    - **Call details** — time, model, input/output/cache tokens and per-call official ¥ / plan $ costs; the in-flight row shows a blue pulse indicator.
    - **Price table** (collapsible) — full merged rate card; `Edit` any model, `+ Add model` for new ones, `Remove` for custom entries.
 4. **Export** — click `Export` in the Call details header, then download **CSV** or **JSON** (links valid for 60 s; click again to regenerate).
 5. **Pricing mode** — toolbar switches: Auto (both) / Official / Plan.
+
+### OpenCode Go official quota
+
+- The official quota card queries `GET https://opencode.ai/zen/go/v1/usage` with your OpenCode Go API key and shows the **account-level** rolling (5h) / weekly / monthly usage percentages and reset times — the same numbers as the OpenCode console.
+- The key is read from the environment only (never stored or logged):
+  - `DSH_OPENCODE_GO_KEY` — dedicated key (recommended), or
+  - `DEEPSEEK_API_KEY` — used automatically when your deepseek provider points at the OpenCode Go gateway.
+- Set it before starting dsh, e.g. `export DSH_OPENCODE_GO_KEY=sk-...`, then restart. The card refreshes every 30 s.
+- The session-scoped plan cost (¥/$ in the overview) is separate from the account quota: it reflects only this session.
 
 ### Custom price table
 

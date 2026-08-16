@@ -25,6 +25,26 @@ export interface UsageCall {
   status: 'running' | 'done'
 }
 
+export interface UsageQuota {
+  model: string
+  cost: number
+  quota: number
+  pct: number
+}
+
+export interface OfficialQuotaWindow {
+  name: 'rolling' | 'weekly' | 'monthly'
+  percent: number | null
+  resetsAt: string | null
+}
+
+export interface OfficialQuota {
+  status: 'ok' | 'missing-key' | 'error'
+  error: string | null
+  windows: OfficialQuotaWindow[]
+  cachedAt: number
+}
+
 export interface UsageState {
   ok: boolean
   mode: 'auto' | 'official' | 'go'
@@ -33,6 +53,8 @@ export interface UsageState {
   lastModel: string | null
   lastProvider: string | null
   totals: UsageTotals
+  quotas: UsageQuota[]
+  officialQuota: OfficialQuota
   calls: UsageCall[]
 }
 

@@ -18,7 +18,8 @@
   - **DeepSeek 官方价**（¥/百万 tokens，2026-08-17 起）：高峰时段（北京时间 9:00–12:00、14:00–18:00）为 2 倍价。V4 Pro：高峰 9/0.3/27，空闲 4.5/0.15/13.5（输入/命中/输出）；V4 Flash：高峰 3/0.1/9，空闲 1.5/0.05/4.5。
   - **OpenCode Go 套餐价**（$/百万 tokens + 月额度）：内置 20 个模型（DeepSeek V4 Pro/Flash、Grok 4.5、GPT 5.6 Luna、GLM、Kimi、MiMo、MiniMax、Qwen3、Hy3 等），如 V4 Flash 空闲 0.22/0.007/0.66、高峰 0.44/0.014/1.32、月额度 $15（DeepSeek 系模型按高峰/空闲两档计费）；套餐 $10/月 ≈ 6 倍额度价值。
   - 三种显示模式：**自动**（双价同显）、**仅官方**、**仅套餐**。
-- **动态渐变蓝色状态条**：输入 / 输出 / 命中分布 + 套餐额度占用，宽度平滑过渡，每秒刷新。
+- **动态渐变蓝色状态条**：输入 / 输出 / 命中分布，宽度平滑过渡，每秒刷新。
+- **OpenCode Go 官方配额**：直连官方 `opencode.ai/zen/go/v1/usage` API，显示账号级滚动（5 小时）/ 每周 / 每月三个配额窗口的已用百分比与重置时间，与 OpenCode 控制台数字一致。
 - **自定义价格表**：任意模型可新增、编辑、移除价格（官方高峰/空闲 + 套餐价 + 额度）。自定义项覆盖内置价目并持久化到 `<workspaceRoot>/.dsh-usage-prices.json`；修改后**历史费用立即按新价格重算**。
 - **CSV / JSON 导出**：一键生成下载链接（60 秒有效），包含逐条调用明细与总计。
 - **高峰/空闲徽标**：工具栏实时显示当前北京时间所处时段。
@@ -72,11 +73,11 @@ allowBuilds:
 安装包发布在 GitHub Releases，不放入源码目录。直接下载：
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.1.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.1/dsh-plugin-usage-0.1.1.tgz
+curl -L -o dsh-plugin-usage-0.1.2.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.2/dsh-plugin-usage-0.1.2.tgz
 
 # 下载后安装
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.1.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.2.tgz
 ```
 
 也可以打开 Releases 页面手动下载：
@@ -141,11 +142,21 @@ dsh web
 2. 打开「用量」页签（在「轨迹」旁边）。
 3. 页面每秒自动刷新：
    - **会话概览**：输入（缓存未命中）/ 输出（含思考）/ 命中 / 费用（官方 ¥ 与套餐 $），当前模型与调用次数。
-   - **用量分布**：输入、输出、命中、套餐额度四条渐变蓝色状态条；进行中的调用带脉冲圆点与「生成中」标记。
+   - **用量分布**：输入、输出、命中三条渐变蓝色状态条；进行中的调用带脉冲圆点与「生成中」标记。
+   - **OpenCode Go 官方配额**：滚动（5 小时）/ 每周 / 每月配额百分比与重置时间，与官方控制台一致；需配置 API Key（见下）。
    - **调用明细**：时间、模型、输入/输出/命中 tokens、官方 ¥ 与套餐 $ 单价费用；进行中的行显示蓝色脉冲指示。
    - **价格表**（可折叠）：完整合并价目表；任意模型可「编辑」，可「+ 新增模型」，自定义项可「移除」。
 4. **导出**：点击「调用明细」标题栏的「导出」按钮，下载 **CSV** 或 **JSON**（链接 60 秒有效；再次点击可重新生成）。
 5. **计价模式**：工具栏切换「自动（双价）/ 官方 / 套餐」。
+
+### OpenCode Go 官方配额
+
+- 官方配额卡片调用 `GET https://opencode.ai/zen/go/v1/usage`（携带你的 OpenCode Go API Key），显示**账号级**滚动（5 小时）/ 每周 / 每月配额百分比与重置时间——与 OpenCode 控制台显示的完全一致。
+- Key 仅从环境变量读取（不落盘、不记录）：
+  - `DSH_OPENCODE_GO_KEY` — 专用 Key（推荐），或
+  - `DEEPSEEK_API_KEY` — 当 deepseek provider 指向 OpenCode Go 网关时自动复用。
+- 启动 dsh 前设置，如 `export DSH_OPENCODE_GO_KEY=sk-...`，然后重启；卡片每 30 秒刷新。
+- 概览中的「套餐 $」是本会话消耗，与账号级配额是不同维度。
 
 ### 自定义价格表
 
