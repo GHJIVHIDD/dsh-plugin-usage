@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-plugin-usage",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Usage (用量) deployment plugin for DeepSeek Harness (DSH): a real-time token & cost dashboard tab next to chat/trajectory, with live streaming estimates, DeepSeek official peak/off-peak pricing and OpenCode Go plan pricing, custom price table, and CSV/JSON export.",
   "type": "module",
   "main": "lib/index.js",
@@ -48,5 +48,8 @@
       ]
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@deepseek-ai/dsh-credentials": "^0.1.0-rc.6"
+  }
 }
