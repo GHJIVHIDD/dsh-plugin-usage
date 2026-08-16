@@ -73,11 +73,11 @@ allowBuilds:
 安装包发布在 GitHub Releases，不放入源码目录。直接下载：
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.3.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.3/dsh-plugin-usage-0.1.3.tgz
+curl -L -o dsh-plugin-usage-0.1.4.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.4/dsh-plugin-usage-0.1.4.tgz
 
 # 下载后安装
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.3.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.4.tgz
 ```
 
 也可以打开 Releases 页面手动下载：
@@ -152,8 +152,9 @@ dsh web
 ### OpenCode Go 官方配额
 
 - 官方配额卡片调用 `GET https://opencode.ai/zen/go/v1/usage`（携带你的 OpenCode Go API Key），显示**账号级**滚动（5 小时）/ 每周 / 每月配额百分比与重置时间——与 OpenCode 控制台显示的完全一致。
-- Key 仅从环境变量读取（不落盘、不记录）：
+- Key 仅从环境变量读取（不落盘、不记录），按顺序自动探测：
   - `DSH_OPENCODE_GO_KEY` — 专用 Key（推荐），或
+  - `OPENCODE_GO_API_KEY` — llm-pi-ai 的 `opencode-go` provider 配置所用的环境变量名，或
   - `DEEPSEEK_API_KEY` — 当 deepseek provider 指向 OpenCode Go 网关时自动复用。
 - 启动 dsh 前设置，如 `export DSH_OPENCODE_GO_KEY=sk-...`，然后重启；卡片每 30 秒刷新。
 - 概览中的「套餐 $」是本会话消耗，与账号级配额是不同维度。

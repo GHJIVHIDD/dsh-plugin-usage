@@ -73,10 +73,10 @@ Then re-run the install command.
 The install package is published in GitHub Releases (not in the source tree):
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.3.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.3/dsh-plugin-usage-0.1.3.tgz
+curl -L -o dsh-plugin-usage-0.1.4.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.4/dsh-plugin-usage-0.1.4.tgz
 
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.3.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.4.tgz
 ```
 
 Or download it from the Releases page:
@@ -151,8 +151,9 @@ If the tab is missing, check the browser console for `usage-api` fetch failures,
 ### OpenCode Go official quota
 
 - The official quota card queries `GET https://opencode.ai/zen/go/v1/usage` with your OpenCode Go API key and shows the **account-level** rolling (5h) / weekly / monthly usage percentages and reset times — the same numbers as the OpenCode console.
-- The key is read from the environment only (never stored or logged):
+- The key is read from the environment only (never stored or logged), in order:
   - `DSH_OPENCODE_GO_KEY` — dedicated key (recommended), or
+  - `OPENCODE_GO_API_KEY` — the env name used by the llm-pi-ai `opencode-go` provider config, or
   - `DEEPSEEK_API_KEY` — used automatically when your deepseek provider points at the OpenCode Go gateway.
 - Set it before starting dsh, e.g. `export DSH_OPENCODE_GO_KEY=sk-...`, then restart. The card refreshes every 30 s.
 - The session-scoped plan cost (¥/$ in the overview) is separate from the account quota: it reflects only this session.
