@@ -16,7 +16,7 @@
 - **历史预载**：首次打开会话时，从持久化会话日志重建完整历史用量（与实时采集按 seq 双向去重）。
 - **双计价、自动判定**：每条调用按其自身时间计价——
   - **DeepSeek 官方价**（¥/百万 tokens，2026-08-17 起）：高峰时段（北京时间 9:00–12:00、14:00–18:00）为 2 倍价。V4 Pro：高峰 9/0.3/27，空闲 4.5/0.15/13.5（输入/命中/输出）；V4 Flash：高峰 3/0.1/9，空闲 1.5/0.05/4.5。
-  - **OpenCode Go 套餐价**（$/百万 tokens + 月额度）：内置 20 个模型（DeepSeek V4 Pro/Flash、Grok 4.5、GPT 5.6 Luna、GLM、Kimi、MiMo、MiniMax、Qwen3、Hy3 等），如 V4 Flash 0.14/0.0028/0.28、月额度 $60；套餐 $10/月 ≈ 6 倍额度价值。
+  - **OpenCode Go 套餐价**（$/百万 tokens + 月额度）：内置 20 个模型（DeepSeek V4 Pro/Flash、Grok 4.5、GPT 5.6 Luna、GLM、Kimi、MiMo、MiniMax、Qwen3、Hy3 等），如 V4 Flash 空闲 0.22/0.007/0.66、高峰 0.44/0.014/1.32、月额度 $15（DeepSeek 系模型按高峰/空闲两档计费）；套餐 $10/月 ≈ 6 倍额度价值。
   - 三种显示模式：**自动**（双价同显）、**仅官方**、**仅套餐**。
 - **动态渐变蓝色状态条**：输入 / 输出 / 命中分布 + 套餐额度占用，宽度平滑过渡，每秒刷新。
 - **自定义价格表**：任意模型可新增、编辑、移除价格（官方高峰/空闲 + 套餐价 + 额度）。自定义项覆盖内置价目并持久化到 `<workspaceRoot>/.dsh-usage-prices.json`；修改后**历史费用立即按新价格重算**。
@@ -72,11 +72,11 @@ allowBuilds:
 安装包发布在 GitHub Releases，不放入源码目录。直接下载：
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.0.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.0/dsh-plugin-usage-0.1.0.tgz
+curl -L -o dsh-plugin-usage-0.1.1.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.1/dsh-plugin-usage-0.1.1.tgz
 
 # 下载后安装
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.0.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.1.tgz
 ```
 
 也可以打开 Releases 页面手动下载：

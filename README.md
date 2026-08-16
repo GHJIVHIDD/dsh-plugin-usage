@@ -16,7 +16,7 @@ A real-time token & cost dashboard tab for the current session, placed next to C
 - **History preload** — the first time a session is opened, the full history is rebuilt from the persisted session log (seq-level dedup against live collection).
 - **Dual pricing, auto-adjusted** — every call is priced by its own timestamp:
   - **DeepSeek official** (CNY / 1M tokens, effective 2026-08-17): peak hours (Beijing 09:00–12:00, 14:00–18:00) are 2× off-peak. V4 Pro: peak 9/0.3/27, off 4.5/0.15/13.5 (in/cache/out); V4 Flash: peak 3/0.1/9, off 1.5/0.05/4.5.
-  - **OpenCode Go plan** (USD / 1M tokens + monthly quota): 20 built-in models (DeepSeek V4 Pro/Flash, Grok 4.5, GPT 5.6 Luna, GLM, Kimi, MiMo, MiniMax, Qwen3, Hy3), e.g. V4 Flash 0.14/0.0028/0.28 with $60/month quota; plan is $10/month ≈ 6× usage value.
+  - **OpenCode Go plan** (USD / 1M tokens + monthly quota): 20 built-in models (DeepSeek V4 Pro/Flash, Grok 4.5, GPT 5.6 Luna, GLM, Kimi, MiMo, MiniMax, Qwen3, Hy3), e.g. V4 Flash off-peak 0.22/0.007/0.66 and peak 0.44/0.014/1.32 with $15/month quota (DeepSeek plan models are billed in two peak tiers); plan is $10/month ≈ 6× usage value.
   - Three display modes: **Auto** (both), **Official** only, **Plan** only.
 - **Animated gradient-blue status bars** — input / output / cache-hit distribution plus plan-quota usage, smooth width transitions refreshed every second.
 - **Custom price table** — add, edit or remove prices for any model (official peak/off + plan prices + quota). Custom entries override the built-in cards, are persisted to `<workspaceRoot>/.dsh-usage-prices.json`, and historical costs are **re-priced immediately** after a change.
@@ -72,10 +72,10 @@ Then re-run the install command.
 The install package is published in GitHub Releases (not in the source tree):
 
 ```bash
-curl -L -o dsh-plugin-usage-0.1.0.tgz \
-  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.0/dsh-plugin-usage-0.1.0.tgz
+curl -L -o dsh-plugin-usage-0.1.1.tgz \
+  https://github.com/GHJIVHIDD/dsh-plugin-usage/releases/download/v0.1.1/dsh-plugin-usage-0.1.1.tgz
 
-dsh plugin --profile web add ./dsh-plugin-usage-0.1.0.tgz
+dsh plugin --profile web add ./dsh-plugin-usage-0.1.1.tgz
 ```
 
 Or download it from the Releases page:
