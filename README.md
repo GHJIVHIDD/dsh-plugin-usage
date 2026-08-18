@@ -225,14 +225,6 @@ A: The UI is web-only; the host half works in any profile, but the dashboard req
 
 ---
 
-## 📄 License
-
-[MIT](LICENSE) © 2026 GHJIVHIDD
-
-### License
-
-This project is licensed under the Apache License 2.0.
-See the full license at https://www.apache.org/licenses/LICENSE-2.0.
 
 ### License
 
