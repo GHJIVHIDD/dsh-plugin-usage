@@ -48,7 +48,7 @@
       ]
     }
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@deepseek-ai/dsh-credentials": "^0.1.0-rc.6"
   }

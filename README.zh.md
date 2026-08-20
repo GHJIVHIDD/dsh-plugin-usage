@@ -186,7 +186,7 @@ dsh-plugin-usage/
 ├── scripts/verify.mjs    # 结构与隐私校验脚本（开发期）
 ├── README.md             # 英文文档
 ├── README.zh.md          # 本文档（中文）
-└── LICENSE               # MIT
+└── LICENSE               # Apache-2.0
 ```
 
 ### HTTP API（内部，同源）
@@ -228,4 +228,4 @@ A：UI 仅支持 web；host 半部可在任意 profile 工作，但仪表盘需�
 
 ## 📄 许可证
 
-[MIT](LICENSE) © 2026 GHJIVHIDD
+[Apache-2.0](LICENSE) © 2026 GHJIVHIDD

@@ -185,7 +185,7 @@ dsh-plugin-usage/
 ├── scripts/verify.mjs    # structural + privacy verification (dev-time)
 ├── README.md             # this file (English)
 ├── README.zh.md          # Chinese documentation
-└── LICENSE               # MIT
+└── LICENSE               # Apache-2.0
 ```
 
 ### HTTP API (internal, same-origin)
